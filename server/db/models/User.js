@@ -9,7 +9,6 @@ const User = conn.define('user', {
     },
     name: {
         type: conn.Sequelize.STRING,
-        unique: true,
         allowNull: false,
         validate: {
             notEmpty: true
@@ -25,11 +24,14 @@ const User = conn.define('user', {
     },
     password: {
         type: conn.Sequelize.STRING,
-        unique: true,
         allowNull: false,
         validate: {
             notEmpty: true
         }
+    },
+    balance: {
+        type: conn.Sequelize.DECIMAL(10, 2),
+        defaultValue: 5000
     }
 })
 

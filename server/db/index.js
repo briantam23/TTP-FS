@@ -19,8 +19,8 @@ const syncAndSeed = () => {
             [Foo, Bar, Baz] = stocks;
             return Promise.all([
                 User.create({ name: 'Brian', email: 'b@gmail.com', password: 'b' }),
-                User.create({ name: 'Johnny', email: 'j@gmail.com', password: 'j' }),
-                User.create({ name: 'Mike', email: 'm@gmail.com', password: 'm' })
+                User.create({ name: 'Johnny', email: 'j@gmail.com', password: 'j', balance: 6000 }),
+                User.create({ name: 'Mike', email: 'm@gmail.com', password: 'm', balance: 4000 })
             ])
         })
         .then(users => {

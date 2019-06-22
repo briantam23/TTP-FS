@@ -6,10 +6,10 @@ class SignIn extends Component {
     render() {
         return(
             <div>
-                <Fragment>
+                <form>
                     <input 
-                        name='username' 
-                        placeholder='Username'
+                        name='email' 
+                        placeholder='Email'
                         size='20'
                         required
                         autoFocus 
@@ -22,7 +22,7 @@ class SignIn extends Component {
                         type='password'
                         />
                     <button>Login</button>
-                </Fragment>
+                </form>
             </div>
         )
     }

@@ -17,10 +17,7 @@ const Stock = conn.define('stock', {
     },
     quantity: {
         type: conn.Sequelize.INTEGER,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
+        defaultValue: 1
     }
 })
 
