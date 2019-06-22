@@ -7,6 +7,8 @@ import { loadInitialTransactions } from '../../store/actions/transactions';
 import { loadInitialStocks } from '../../store/actions/stocks';
 import SignIn from '../signIn/SignIn';
 import Register from '../register/Register';
+import transactions from '../transactions/Transactions';
+import Transactions from '../transactions/Transactions';
 
 
 class App extends Component {
@@ -33,6 +35,7 @@ class App extends Component {
                         <div className={ style.mainContainer }>
                             <Route exact path='/' render={ () => <SignIn/> }/>
                             <Route path='/create-account' render={ () => <Register/> }/>
+                            <Route path='/transactions' render={ () => <Transactions/> }/>
                             <a className={ style.footer } href="https://iexcloud.io">Data provided by IEX Cloud</a>
                         </div>
                     )
