@@ -12,7 +12,7 @@
       "url": "https://briantam23.github.io"
     }
   ],
-  "homepage": "https://github.com/briantam23/TTP-FS",
+  "homepage": "https://ttp-fs-btam.herokuapp.com",
   "version": "1.0.0",
   "description": "A Single Page Stock Portfolio App created with React, Redux, & LESS, along with multiple Testing libraries (Enzyme, Mocha, Chai, Sinon, SuperTest), and Continuous Integration using TravisCI.",
   "repository": {

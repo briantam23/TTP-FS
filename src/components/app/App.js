@@ -9,6 +9,7 @@ const App = () => {
         <Router>
             <div className={ style.mainContainer }>
                 <Route render={ () => <SignIn/> }/>
+                <a href="https://iexcloud.io">Data provided by IEX Cloud</a>
             </div>
         </Router>
     )
