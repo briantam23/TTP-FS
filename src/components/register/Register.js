@@ -5,7 +5,7 @@ import { Button, Col, Form, FormGroup, Label, Input, FormFeedback } from 'reacts
 import { createUser } from '../../store/actions/users';
 
 
-class Register extends Component {
+export class Register extends Component {
 
     state = {
         name: '',

@@ -1,6 +1,6 @@
 # 📈 Stock Portfolio App
 
-A Single Page Stock Portfolio App created with React, Redux, & LESS, along with multiple Testing libraries (Enzyme, Mocha, Chai, Sinon, SuperTest), and Continuous Integration using TravisCI.
+A Single Page Stock Portfolio App created with React, Redux & NodeJS.
 
 ## Login Credentials
 

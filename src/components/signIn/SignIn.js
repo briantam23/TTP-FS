@@ -7,7 +7,7 @@ import { loadInitialTransactions } from '../../store/actions/transactions';
 import { Button, Col, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 
 
-class SignIn extends Component {
+export class SignIn extends Component {
 
     state = {
         email: '',

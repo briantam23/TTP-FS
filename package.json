@@ -14,7 +14,7 @@
   ],
   "homepage": "https://ttp-fs-btam.herokuapp.com",
   "version": "1.0.0",
-  "description": "A Single Page Stock Portfolio App created with React, Redux, & LESS, along with multiple Testing libraries (Enzyme, Mocha, Chai, Sinon, SuperTest), and Continuous Integration using TravisCI.",
+  "description": "A Single Page Stock Portfolio App created with React, Redux & NodeJS.",
   "repository": {
     "type": "git",
     "url": "https://github.com/briantam23/TTP-FS.git"
@@ -32,10 +32,7 @@
   "keywords": [
     "react",
     "redux",
-    "less",
     "nodejs",
-    "travis-ci",
-    "enzyme",
     "jwt-authentication",
     "postgres"
   ],
@@ -75,11 +72,16 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
+    "chai": "^4.2.0",
     "css-loader": "^2.1.0",
     "dotenv-webpack": "^1.7.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "ignore-styles": "^5.0.1",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
+    "mocha": "^5.2.0",
+    "sinon": "^7.3.2",
     "style-loader": "^0.23.1",
     "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1"
