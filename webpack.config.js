@@ -28,6 +28,10 @@ module.exports = {
             },
             { loader: "less-loader" }
           ]
+        },
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader']
         }
       ]
     },

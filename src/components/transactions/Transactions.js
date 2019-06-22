@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import style from './transactions.less';
+import { ListGroup, ListGroupItem, Button, Badge } from 'reactstrap';
 import { findStockNameById, findFinishedTransactions } from '../../util';
 import transactionsReducer from '../../store/reducers/transactions';
 
@@ -10,19 +12,21 @@ const Transactions = ({ transactions, stocks, auth }) => (
         <hr/>
     {
         transactions.map(transaction => (
-            <Fragment key={ transaction.id }>
-                <div>
+            <ListGroup key={ transaction.id }>
+                <Fragment>
                     Transaction ID: <br/>{ transaction.id }
-                </div>
+                </Fragment>
             {
                 transaction.lineItems.map(lineItem => (
-                    <Fragment key={ lineItem.id }>
-                        <h5>{ findStockNameById(stocks, lineItem.stockId) }</h5>
-                        <h5>Quantity: { lineItem.quantity }</h5>
-                    </Fragment>
+                    <ListGroupItem key={ lineItem.id }>
+                        <h5>
+                            <Badge color='primary'>{ findStockNameById(stocks, lineItem.stockId) }</Badge>
+                            <Badge color='success' className={ style.quantity }>Quantity: { lineItem.quantity }</Badge>
+                        </h5>
+                    </ListGroupItem>
                 ))
             }
-            </Fragment>
+            </ListGroup>
         ))
     }
     </Fragment>

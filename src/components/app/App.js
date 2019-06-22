@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import style from './app.less'
+import { Spinner } from 'reactstrap';
 import { loadInitialUsers } from '../../store/actions/users';
 import { loadInitialTransactions } from '../../store/actions/transactions';
 import { loadInitialStocks } from '../../store/actions/stocks';
@@ -30,7 +31,7 @@ class App extends Component {
             <Router>
             {
                 loading 
-                    ? <div>Loading...</div>
+                    ? <Spinner color='primary'/>
                     : (
                         <div className={ style.mainContainer }>
                             <Route exact path='/' render={ () => <SignIn/> }/>
@@ -48,13 +49,6 @@ class App extends Component {
 
 const mapStateToProps = ({ auth }) => ({ auth });
 
-/* const mapDispatchToProps = dispatch => { 
-    return {
-        loadInitialUsers: dispatch(loadInitialUsers()),
-        loadInitialTransactions: dispatch(loadInitialTransactions()),
-        loadInitialStocks: dispatch(loadInitialStocks())
-    }
-}; */
 const mapDispatchToProps = { loadInitialUsers, loadInitialTransactions, loadInitialStocks };
 
 

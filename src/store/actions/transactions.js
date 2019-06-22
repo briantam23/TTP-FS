@@ -11,12 +11,12 @@ export const loadInitialTransactions = userId => (
         if(userId) {
             return axios.get(`/api/users/${userId}/transactions`)
                 .then(res => res.data)
-                .then(transaction => dispatch(_loadInitialTransactions(transaction)))
+                .then(transactions => dispatch(_loadInitialTransactions(transactions)))
         }
         else {
             return axios.get(`/api/transactions`)
                 .then(res => res.data)
-                .then(transaction => dispatch(_loadInitialTransactions(transaction)))
+                .then(transactions => dispatch(_loadInitialTransactions(transactions)))
         }
     }
 )
