@@ -3,36 +3,56 @@ import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import style from './app.less'
 import { loadInitialUsers } from '../../store/actions/users';
+import { loadInitialTransactions } from '../../store/actions/transactions';
+import { loadInitialStocks } from '../../store/actions/stocks';
 import SignIn from '../signIn/SignIn';
 import Register from '../register/Register';
 
 
 class App extends Component {
 
+    state = { loading: true };
+
     componentDidMount = () => {
-        const { loadInitalUsers } = this.props;
-        loadInitialUsers()
+        const { loadInitialUsers, loadInitialTransactions, loadInitialStocks, auth } = this.props;
+        loadInitialTransactions(auth.id)
+            .then(() => loadInitialUsers())
+            .then(() => loadInitialStocks())
+            .then(() => this.setState({ loading: false }))
     }
 
     render() {
+        const { loading } = this.state;
+        const { auth } = this.props;
         return(
             <Router>
-                <div className={ style.mainContainer }>
-                    <Route exact path='/' render={ () => <SignIn/> }/>
-                    <Route path='/create-account' render={ () => <Register/> }/>
-                    <a className={ style.footer } href="https://iexcloud.io">Data provided by IEX Cloud</a>
-                </div>
+            {
+                loading 
+                    ? <div>Loading...</div>
+                    : (
+                        <div className={ style.mainContainer }>
+                            <Route exact path='/' render={ () => <SignIn/> }/>
+                            <Route path='/create-account' render={ () => <Register/> }/>
+                            <a className={ style.footer } href="https://iexcloud.io">Data provided by IEX Cloud</a>
+                        </div>
+                    )
+            }
             </Router>
         )
     }
 }
 
 
-const mapDispatchToProps = dispatch => { 
+const mapStateToProps = ({ auth }) => ({ auth });
+
+/* const mapDispatchToProps = dispatch => { 
     return {
-        loadInitialUsers: dispatch(loadInitialUsers())
+        loadInitialUsers: dispatch(loadInitialUsers()),
+        loadInitialTransactions: dispatch(loadInitialTransactions()),
+        loadInitialStocks: dispatch(loadInitialStocks())
     }
-};
+}; */
+const mapDispatchToProps = { loadInitialUsers, loadInitialTransactions, loadInitialStocks };
 
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
