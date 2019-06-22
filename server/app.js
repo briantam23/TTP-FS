@@ -12,6 +12,12 @@ app.use('/public', express.static(path.join(__dirname, '../public')));
 // Sends our index.html (the "single page" of our SPA)
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../public/index.html')));
 
+// Routes that will be accessed via AJAX that are prepended 
+// with /api so that they are isolated from our GET /* wildcard.
+app.use('/api/users', require('./routes/users'));
+app.use('/api/stocks', require('./routes/stocks'));
+
+
 // Error catching endware
 app.use((err, req, res, next) => {
     console.log(err);
