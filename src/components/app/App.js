@@ -18,8 +18,8 @@ class App extends Component {
         return(
             <Router>
                 <div className={ style.mainContainer }>
-                    {/* <Route render={ () => <SignIn/> }/> */}
-                    <Route render={ () => <Register/> }/>
+                    <Route render={ () => <SignIn/> }/>
+                    {/* <Route render={ () => <Register/> }/> */}
                     <a href="https://iexcloud.io">Data provided by IEX Cloud</a>
                 </div>
             </Router>

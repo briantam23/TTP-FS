@@ -8,11 +8,7 @@ const User = conn.define('user', {
         primaryKey: true
     },
     name: {
-        type: conn.Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
+        type: conn.Sequelize.STRING
     },
     email: {
         type: conn.Sequelize.STRING,
