@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User } = require('../db').models;
+const { User, Transaction, LineItem, Stock } = require('../db').models;
 
 
 //get users
@@ -43,5 +43,74 @@ router.delete('/:userId', (req, res, next) => {
         .catch(next)
 })
 
+//get transactions by user ID
+router.get('/:userId/transactions', async (req, res, next) => {
+    try {
+        let cart = await Transaction.findOne({ 
+            where: { status: 'CART' },
+            include: [{
+                model: User,
+                where: { id: req.params.userId }
+            }] 
+        })
+        if(!cart) {
+            cart = await Transaction.create({ where: { status: 'CART' } });
+            user = await Transaction.findByPk(req.params.userId);
+            await cart.setUser(user);
+        }
+        const transactions = await Transaction.findAll({
+            include: [ 
+                LineItem, { 
+                    model: User,
+                    where: { id: req.params.userId } 
+                }
+            ],
+            order: [['createdAt', 'DESC']]
+        })
+        res.send(transactions);
+    }
+    catch(ex) {
+        next(ex)
+    }
+})
+
+//create line item
+router.post('/:userId/transactions/:transactionId/lineItems', (req, res, next) => {
+    LineItem.create({
+        transactionId: req.params.transactionId,
+        quantity: req.body.quantity,
+        stockId: req.body.stockId
+    })
+        .then(lineItem => res.send(lineItem))
+        .catch(next)
+})
+
+//update line item
+router.put('/:userId/transactions/:transactionId/lineItems/:lineItemId', (req, res, next) => {
+    LineItem.findByPk(req.params.lineItemId)
+        .then(lineItem => lineItem.update(req.body))
+        .then(lineItem => res.send(lineItem))
+        .catch(next)
+})
+
+//delete line item
+router.delete('/:userId/transactions/:transactionId/lineItems/:lineItemId', (req, res, next) => {
+    LineItem.destory({ 
+        where: {
+            transactionId: req.params.transactionId,
+            id: req.params.lineItemId
+        }
+    })
+        .then(() => res.sendStatus(204))
+        .catch(next)
+})
+
+//update transaction
+router.put('/:userId/transactions/:transactionId', (req, res, next) => {
+    Transaction.findByPk(req.params.transactionId)
+        .then(transaction => transaction.update({ ...req.body, userId: req.params.userId}))
+        .then(transaction => res.send(transaction))
+        .catch(next)
+})
 
 module.exports = router;

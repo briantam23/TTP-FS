@@ -18,9 +18,9 @@ class App extends Component {
         return(
             <Router>
                 <div className={ style.mainContainer }>
-                    <Route render={ () => <SignIn/> }/>
-                    {/* <Route render={ () => <Register/> }/> */}
-                    <a href="https://iexcloud.io">Data provided by IEX Cloud</a>
+                    <Route exact path='/' render={ () => <SignIn/> }/>
+                    <Route path='/create-account' render={ () => <Register/> }/>
+                    <a className={ style.footer } href="https://iexcloud.io">Data provided by IEX Cloud</a>
                 </div>
             </Router>
         )

@@ -38,6 +38,7 @@ app.use((req, res, next) => {
 // with /api so that they are isolated from our GET /* wildcard.
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/users'));
+app.use('/api/transactions', require('./routes/transactions'));
 app.use('/api/stocks', require('./routes/stocks'));
 
 

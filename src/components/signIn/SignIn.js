@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import style from './signIn.less';
+import { Link } from 'react-router-dom';
 import { login, logout } from '../../store/actions/auth';
 
 
@@ -85,6 +86,9 @@ class SignIn extends Component {
                             type='password'
                             />
                         <button disabled={ !email && !password }>Login</button>
+                        <div>
+                            <Link to='/create-account'>Create an account</Link>
+                        </div>
                     </Fragment>
                 ) : (
                     <Fragment>
