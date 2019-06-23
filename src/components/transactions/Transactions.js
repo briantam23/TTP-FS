@@ -1,9 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import style from './transactions.less';
 import { ListGroup, ListGroupItem, Button, Badge } from 'reactstrap';
 import { findStockNameById, findFinishedTransactions } from '../../util';
-import transactionsReducer from '../../store/reducers/transactions';
 
 
 const Transactions = ({ transactions, stocks, auth }) => (

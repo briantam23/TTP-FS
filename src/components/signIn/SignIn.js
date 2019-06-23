@@ -48,7 +48,7 @@ export class SignIn extends Component {
                         error: 'Incorrect Email and/or Password.'
                     })
                 })
-        ) : logout(history)
+        ) : logout()
     }
 
     render() {
@@ -124,20 +124,23 @@ export class SignIn extends Component {
                                         </Fragment>
                                     )
                                 }
-                                    
                                 </Col>
                             </FormGroup>
                             <Button disabled={ !email && !password } color='primary'>Login</Button>
-                            <div>
-                                <Link to='/create-account'>Create an account</Link>
+                            <hr/>
+                            <div className={ style.register }>
+                                <h4>Or</h4>
+                                <Link to='/register'>
+                                    <Button color='info'>Create an account</Button>
+                                </Link>
                             </div>
                         </Form>
                     </Fragment>
                 ) : (
                     <Fragment>
-                        <Form onSubmit={ handleAuth }>
-                            <div>Welcome { auth.name }!</div>
-                            <Button color='danger'>Logout</Button>
+                        <Form onSubmit={ handleAuth } className={ style.welcome }>
+                            <h3>Welcome { auth.name }!</h3>
+                            <Button color='danger' className={ style.logOut }>Logout</Button>
                         </Form>
                     </Fragment>
                 )

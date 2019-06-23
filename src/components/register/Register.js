@@ -19,10 +19,10 @@ export class Register extends Component {
     }
 
     onSubmit = e => {
-        const { createUser } = this.props;
+        const { createUser, history } = this.props;
         const { name, email, password } = this.state;
         e.preventDefault();
-        createUser({ name, email, password })
+        createUser({ name, email, password }, history)
             .then(() => this.setState({ error: '' }))
             .catch(() => this.setState({ error: 'Email is already registered!' }));
     }

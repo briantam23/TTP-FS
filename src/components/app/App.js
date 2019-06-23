@@ -6,9 +6,10 @@ import { Spinner } from 'reactstrap';
 import { loadInitialUsers } from '../../store/actions/users';
 import { loadInitialTransactions } from '../../store/actions/transactions';
 import { loadInitialStocks } from '../../store/actions/stocks';
+import NavBar from '../navBar/NavBar';
 import SignIn from '../signIn/SignIn';
 import Register from '../register/Register';
-import transactions from '../transactions/Transactions';
+import Portfolio from '../portfolio/Portfolio';
 import Transactions from '../transactions/Transactions';
 
 
@@ -34,8 +35,11 @@ class App extends Component {
                     ? <Spinner color='primary'/>
                     : (
                         <div className={ style.mainContainer }>
-                            <Route exact path='/' render={ () => <SignIn/> }/>
-                            <Route path='/create-account' render={ () => <Register/> }/>
+                            <h1 className={ style.title }>TTP-FS: Brian Tam</h1>
+                            <Route render={ () => <NavBar/> }/>
+                            <Route exact path='/' render={ ({ history }) => <SignIn history={ history }/> }/>
+                            <Route path='/register' render={ ({ history }) => <Register history={ history }/> }/>
+                            <Route path='/portfolio' render={ () => <Portfolio/> }/>
                             <Route path='/transactions' render={ () => <Transactions/> }/>
                             <a className={ style.footer } href="https://iexcloud.io">Data provided by IEX Cloud</a>
                         </div>

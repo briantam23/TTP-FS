@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/briantam23/TTP-FS.svg?token=qfoyGnbzJbjd9K4Z3Dnz&branch=master)](https://travis-ci.com/briantam23/TTP-FS)
+
 # 📈 Stock Portfolio App
 
 A Single Page Stock Portfolio App created with React, Redux & NodeJS.
