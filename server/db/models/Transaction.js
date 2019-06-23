@@ -11,6 +11,9 @@ const Transaction = conn.define('transaction', {
         type: conn.Sequelize.ENUM('CART', 'TRANSACTION'),
         allowNull: false,
         defaultValue: 'CART'
+    },
+    totalCost: {
+        type: conn.Sequelize.DECIMAL(10, 2)
     }
 })
 

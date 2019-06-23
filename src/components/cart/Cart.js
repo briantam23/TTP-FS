@@ -1,13 +1,21 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import style from './cart.less';
 import { Table, Button } from 'reactstrap';
 import { createLineItem, updateLineItem, deleteLineItem, updateTransaction } from '../../store/actions/transactions';
-import { findPendingTransaction, findLineItemById } from '../../util';
+import { findPendingTransaction, findLineItemById, findCurrentPriceById, findCartTotal } from '../../util';
 
 
 const Cart = ({ cart, stocks, auth, createLineItem, updateLineItem, deleteLineItem, updateTransaction, history }) => (
     <Fragment>
-        <h2>Cart</h2>
+        <div className={ style.cartHeader }>
+            <h2>Cart</h2>
+            <h4 className={ style.balance }>
+            {
+                auth.balance ? ('Balance ($' + auth.balance + ')') : null
+            }
+            </h4>
+        </div>
         <hr/>
         <h3>Stocks</h3>
         <Table dark striped>
@@ -23,11 +31,11 @@ const Cart = ({ cart, stocks, auth, createLineItem, updateLineItem, deleteLineIt
             stocks.map((stock, idx) => {
                 let quantity = 0;
                 let inCart = false;
-                let lineItem = null;
-                if(findLineItemById(cart, stock)) {
-                    lineItem = findLineItemById(cart, stock);
+                const lineItem = findLineItemById(cart, stock);
+                if(lineItem) {
                     quantity = lineItem.quantity;
                     inCart = true;
+                    lineItem.price = findCurrentPriceById(stocks, lineItem.stockId);
                 }
                 const transactionId = cart.id;
                 return(
@@ -40,7 +48,7 @@ const Cart = ({ cart, stocks, auth, createLineItem, updateLineItem, deleteLineIt
                                 updateLineItem(lineItem, transactionId, quantity, 'increment') : 
                                 createLineItem(stock, transactionId) 
                                 }>
-                            <Button>+</Button>
+                            <Button disabled={ !auth.id }>+</Button>
                         </td>
                         <td onClick={ 
                                 () => quantity > 1 ? 
@@ -55,8 +63,12 @@ const Cart = ({ cart, stocks, auth, createLineItem, updateLineItem, deleteLineIt
         }
         </tbody>
         </Table>
+        <h4 className={ style.cartTotal }>
+                <strong>Total: </strong> 
+                ${ findCartTotal(cart).toFixed(2) }
+        </h4> 
         <Button 
-            onClick={ () => updateTransaction(cart, auth, history) }
+            onClick={ () => updateTransaction(cart, auth, stocks, history) }
             disabled={ !cart.lineItems[0] }
             color='primary' block
             >

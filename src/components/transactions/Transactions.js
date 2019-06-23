@@ -12,12 +12,10 @@ const Transactions = ({ transactions, stocks, auth }) => (
     {
         transactions.map(transaction => (
             <ListGroup className={ style.listGroup } key={ transaction.id }>
-                <Fragment>
-                    <h5>
-                        <strong>Transaction ID: </strong>
-                        <br/>{ transaction.id }
-                    </h5>
-                </Fragment>
+                <h5>
+                    <strong>Transaction ID: </strong>
+                    <br/>{ transaction.id }
+                </h5>
             {
                 transaction.lineItems.map(lineItem => (
                     <ListGroupItem key={ lineItem.id }>
@@ -29,13 +27,18 @@ const Transactions = ({ transactions, stocks, auth }) => (
                             <strong>Quantity: </strong>
                             { lineItem.quantity }
                         </h5>
-                        <h5>
-                            <strong>Total: </strong>
-                            $
-                        </h5>
                     </ListGroupItem>
                 ))
             }
+            {
+                transaction.totalCost ? (
+                    <h4 className={ style.transactionTotal }>
+                        <strong>Total: </strong> 
+                        ${ transaction.totalCost }
+                    </h4> 
+                ): null
+            }
+                <hr/>
             </ListGroup>
         ))
     }

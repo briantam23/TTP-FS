@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import style from './portfolio.less';
 import { ListGroup, ListGroupItem } from 'reactstrap';
-import { findTotalsByStock, findPortfolioValue } from '../../util';
+import { findTotalsByStock, findPortfolioValue, getPerformanceColor } from '../../util';
 
 
 const Portfolio = ({ stockSet, stocks, auth }) => (
@@ -12,10 +12,10 @@ const Portfolio = ({ stockSet, stocks, auth }) => (
         <ListGroup>
         {
             stockSet.map(stock => {
-                const { id, symbol, quantity, currentPrice } = stock;
+                const { id, symbol, quantity, currentPrice, openPrice } = stock;
                 return(
-                    <ListGroupItem key={ id }>
-                        <h5>
+                    <ListGroupItem className={ getPerformanceColor(currentPrice, openPrice, style) } key={ id }>
+                        <h5 className={ getPerformanceColor(currentPrice, openPrice, style) }>
                             <strong>Stock Symbol: </strong>
                             { symbol }
                         </h5>
@@ -23,7 +23,7 @@ const Portfolio = ({ stockSet, stocks, auth }) => (
                             <strong>Shares: </strong>
                             { quantity }
                         </h5>
-                        <h5>
+                        <h5 className={ getPerformanceColor(currentPrice, openPrice, style) }>
                             <strong>Total Share Price: </strong>
                             ${ quantity * currentPrice }
                         </h5>

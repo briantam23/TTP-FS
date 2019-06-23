@@ -90,7 +90,10 @@ router.delete('/:userId/transaction/:transactionId/lineItems/:lineItemId', (req,
 //update transaction
 router.put('/:userId/transaction/:transactionId', (req, res, next) => {
     Transaction.findByPk(req.params.transactionId)
-        .then(transaction => transaction.update({ ...req.body, userId: req.params.userId}))
+        .then(transaction => transaction.update({
+            ...req.body, 
+            userId: req.params.userId
+        }))
         .then(transaction => res.send(transaction))
         .catch(next)
 })

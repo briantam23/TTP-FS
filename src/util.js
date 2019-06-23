@@ -32,14 +32,31 @@ export const getStockFromAPI = symbol => (
     axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=${process.env.IEX_API_KEY}`)
 )
 
-export const findCurrentPrice = (stocks, symbol) => (
+const findCurrentPriceBySymbol = (stocks, symbol) => (
     stocks.find(stock => stock.symbol === symbol).latestPrice
+)
+
+export const findCurrentPriceById = (stocks, id) => (
+    Number(stocks.find(stock => stock.id === id).latestPrice)
+)
+
+export const findCartTotal = cart => {
+    if(cart.lineItems[0]) {
+        return cart.lineItems.reduce((acc, curVal) => {
+            return acc += curVal.quantity * curVal.price;
+        }, 0)
+    }
+    else return 0;
+}
+
+export const findOpenPrice = (stocks, symbol) => (
+    stocks.find(stock => stock.symbol === symbol).openPrice
 )
 
 export const findTotalsByStock = (transactions, stocks, auth) => {
     const stockSet = [];
     const stockSymbols = [];
-    let currentPrice, stockSymbol;
+    let currentPrice, openPrice, stockSymbol;
 
     findFinishedTransactions(transactions, auth).forEach(transaction => {
 
@@ -50,8 +67,9 @@ export const findTotalsByStock = (transactions, stocks, auth) => {
             
             if(stockSymbols.indexOf(stockSymbol) === -1) {
                 stockSymbols.push(stockSymbol);
-                currentPrice = Number(findCurrentPrice(stocks, stockSymbol));
-                stockSet.push({ id, symbol: stockSymbol, quantity, currentPrice });
+                currentPrice = Number(findCurrentPriceBySymbol(stocks, stockSymbol));
+                openPrice = Number(findOpenPrice(stocks, stockSymbol));
+                stockSet.push({ id, symbol: stockSymbol, quantity, currentPrice, openPrice });
             }
             else {
                 stockSet
@@ -66,3 +84,9 @@ export const findTotalsByStock = (transactions, stocks, auth) => {
 export const findPortfolioValue = stockSet => (
     stockSet.reduce((acc, curVal) => acc += curVal.quantity * curVal.currentPrice, 0).toFixed(2)
 )
+
+export const getPerformanceColor = (currentPrice, openPrice, style) => {
+    if(currentPrice < openPrice) return style.red;
+    else if(currentPrice === openPrice) return style.grey;
+    else return style.green;
+}

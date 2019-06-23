@@ -1,5 +1,6 @@
 import { LOAD_INITIAL_TRANSACTIONS, UPDATE_TRANSACTION, CREATE_LINE_ITEM, UPDATE_LINE_ITEM, DELETE_LINE_ITEM } from '../constants';
 import axios from 'axios';
+import { findCurrentPriceById, findCartTotal } from '../../util';
 
 
 const _loadInitialTransactions = transactions => ({
@@ -19,7 +20,7 @@ const _createLineItem = lineItem => ({
     lineItem
 }) 
 export const createLineItem = (stock, transactionId) => {
-    let lineItem = { ...stock, stockId: stock.id }, userId;
+    let lineItem = { ...stock, stockId: stock.id, price: stock.latestPrice }, userId;
     return(
         dispatch => (
             axios.post(`/api/users/${userId}/transaction/${transactionId}/lineItems`, lineItem)
@@ -57,14 +58,14 @@ export const deleteLineItem = (lineItem, transactionId) => {
     )
 }
 
-const _updateTransaction = (transaction, userId, history) => ({
+const _updateTransaction = (transaction, userId) => ({
     type: UPDATE_TRANSACTION,
     transaction,
     userId
 })
-export const updateTransaction = (cart, auth, history) => {
-    let userId;
-    const newTransaction = { ...cart, status: 'TRANSACTION' };
+export const updateTransaction = (cart, auth, stocks, history) => {
+    const totalCost = findCartTotal(cart).toFixed(2);
+    const newTransaction = { ...cart, status: 'TRANSACTION', totalCost };
     return dispatch => (
         axios.put(`/api/users/${auth.id}/transaction/${cart.id}`, newTransaction)
             .then(() => axios.get(`/api/transactions`))
