@@ -44,34 +44,16 @@ router.delete('/:userId', (req, res, next) => {
 })
 
 //get transactions by user ID
-router.get('/:userId/transactions', async (req, res, next) => {
-    try {
-        let cart = await Transaction.findOne({ 
-            where: { status: 'CART' },
-            include: [{
-                model: User,
-                where: { id: req.params.userId }
-            }] 
-        })
-        if(!cart) {
-            cart = await Transaction.create({ where: { status: 'CART' } });
-            user = await Transaction.findByPk(req.params.userId);
-            await cart.setUser(user);
-        }
-        const transactions = await Transaction.findAll({
-            include: [ 
-                LineItem, { 
-                    model: User,
-                    where: { id: req.params.userId } 
-                }
-            ],
-            order: [['createdAt', 'DESC']]
-        })
-        res.send(transactions);
-    }
-    catch(ex) {
-        next(ex)
-    }
+router.get('/:userId/transactions', (req, res, next) => {
+    Transaction.findOne({ 
+        where: { status: 'CART' },
+        include: [{
+            model: User,
+            where: { id: req.params.userId }
+        }] 
+    })
+        .then(res => res.data)
+        .then(transactions => res.send(transactions))
 })
 
 //create line item
@@ -112,5 +94,6 @@ router.put('/:userId/transaction/:transactionId', (req, res, next) => {
         .then(transaction => res.send(transaction))
         .catch(next)
 })
+
 
 module.exports = router;

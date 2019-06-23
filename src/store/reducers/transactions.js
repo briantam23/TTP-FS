@@ -19,7 +19,7 @@ const transactionsReducer = (state = [], action) => {
             cart = { ...cart, lineItems };
             return state.map(transaction => transaction.status !== 'CART' ? transaction : cart);
         case UPDATE_TRANSACTION:
-            return action.transactions.filter(transaction => transaction.userId === action.userId || transaction.userId === null);
+            return action.transaction;
         default:
             return state;
     }

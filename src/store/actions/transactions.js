@@ -8,16 +8,9 @@ const _loadInitialTransactions = transactions => ({
 })
 export const loadInitialTransactions = userId => (
     dispatch => {
-        /* if(userId) {
-            return axios.get(`/api/users/${userId}/transactions`)
-                .then(res => res.data)
-                .then(transactions => dispatch(_loadInitialTransactions(transactions)))
-        }
-        else { */
-            return axios.get(`/api/transactions`)
-                .then(res => res.data)
-                .then(transactions => dispatch(_loadInitialTransactions(transactions)))
-        //}
+        return axios.get(`/api/transactions`)
+            .then(res => res.data)
+            .then(transactions => dispatch(_loadInitialTransactions(transactions)))
     }
 )
 
@@ -64,20 +57,21 @@ export const deleteLineItem = (lineItem, transactionId) => {
     )
 }
 
-const _updateTransaction = (transaction, userId) => ({
+const _updateTransaction = (transaction, userId, history) => ({
     type: UPDATE_TRANSACTION,
     transaction,
     userId
 })
-export const updateTransaction = (cart, history) => {
+export const updateTransaction = (cart, auth, history) => {
+    let userId;
     const newTransaction = { ...cart, status: 'TRANSACTION' };
     return dispatch => (
-        axios.put(`/api/users/${cart.userId}/transaction/${cart.id}`, newTransaction)
-            .then(() => axios.get(`/api/users/${cart.userId}/transaction`))
+        axios.put(`/api/users/${auth.id}/transaction/${cart.id}`, newTransaction)
+            .then(() => axios.get(`/api/transactions`))
             .then(res => res.data)
             .then(newTransactions => {
-                history.push('/transaction');
-                dispatch(_updateTransaction(newTransactions, cart.userId));
+                history.push('/transactions');
+                dispatch(_updateTransaction(newTransactions));
             })
     )
 }

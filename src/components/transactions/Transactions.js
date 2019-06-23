@@ -33,7 +33,7 @@ const Transactions = ({ transactions, stocks, auth }) => (
 
 
 const mapStateToProps = ({ transactions, stocks, auth }) => {
-    transactions = findFinishedTransactions(transactions);
+    transactions = findFinishedTransactions(transactions, auth);
     return { transactions, stocks, auth };
 }
 

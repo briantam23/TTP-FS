@@ -2,7 +2,7 @@ import { SET_AUTH } from '../constants';
 import axios from 'axios';
 
 
-const exchangeTokenForAuth = history => (
+const exchangeTokenForAuth = () => (
     dispatch => {
         const token = window.localStorage.getItem('token');
         if(!token) return;
@@ -10,10 +10,7 @@ const exchangeTokenForAuth = history => (
             headers: { authorization: token }
         })
             .then(res => res.data)
-            .then(auth => {
-                dispatch(_setAuth(auth))
-                history.push('/portfolio')
-            })
+            .then(auth => dispatch(_setAuth(auth)))
             .catch(ex => window.localStorage.removeItem('token'))
     }
 )
@@ -28,13 +25,13 @@ export const logout = () => {
     return _setAuth({});
 }
 
-export const login = (credentials, history) => (
+export const login = credentials => (
     dispatch => (
         axios.post('/api/auth', credentials)
             .then(res => res.data)
             .then(data => {
                 window.localStorage.setItem('token', data.token);
-                dispatch(exchangeTokenForAuth(history));
+                dispatch(exchangeTokenForAuth());
             })
     )
 )

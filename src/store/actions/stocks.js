@@ -11,33 +11,27 @@ export const loadInitialStocks = () => (
     dispatch => {
         return getStockFromAPI('AAPL')
             .then(res => {
-                let { symbol, open, latestPrice } = res.data;
-                postStock(symbol, open, latestPrice);
+                postStock(res);
                 return getStockFromAPI('FB')
             })
             .then(res => {
-                let { symbol, open, latestPrice } = res.data;
-                postStock(symbol, open, latestPrice);
+                postStock(res);
                 return getStockFromAPI('GOOGL')
             })
             .then(res => {
-                let { symbol, open, latestPrice } = res.data;
-                postStock(symbol, open, latestPrice);
+                postStock(res);
                 return getStockFromAPI('MSFT')
             })
             .then(res => {
-                let { symbol, open, latestPrice } = res.data;
-                postStock(symbol, open, latestPrice);
+                postStock(res);
                 return getStockFromAPI('TSLA')
             })
             .then(res => {
-                let { symbol, open, latestPrice } = res.data;
-                postStock(symbol, open, latestPrice);
+                postStock(res);
                 return getStockFromAPI('YELP')
             })
             .then(res => {
-                let { symbol, open, latestPrice } = res.data;
-                postStock(symbol, open, latestPrice);
+                postStock(res);
             })
             .then(() => axios.get('/api/stocks'))
             .then(stocks => dispatch(_loadInitialStocks(filterStocks(stocks))));

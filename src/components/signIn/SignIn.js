@@ -16,7 +16,7 @@ export class SignIn extends Component {
     }
 
     componentDidUpdate = prevProps => {
-        const { auth, loadInitialTransactions } = this.props;
+        const { auth, loadInitialTransactions, history } = this.props;
         if(prevProps !== this.props) {
             if(auth.id) {
                 loadInitialTransactions(auth.id)
@@ -27,6 +27,7 @@ export class SignIn extends Component {
                             error: '' 
                         });
                     })
+                    .then(() => history.push('/portfolio'))
             }
         }
     }
@@ -37,10 +38,10 @@ export class SignIn extends Component {
 
     handleAuth = e => {
         e.preventDefault();
-        const { auth, login, logout, history } = this.props;
+        const { auth, login, logout } = this.props;
 
         !auth.id ? (
-            login(this.state, history)
+            login(this.state)
                 .catch(() => {
                     this.setState({
                         email: '',
@@ -54,7 +55,7 @@ export class SignIn extends Component {
     render() {
         const { email, password, error } = this.state;
         const { handleChange, handleAuth } = this;
-        const { auth, history } = this.props;
+        const { auth } = this.props;
         return(
             <div>
             {   

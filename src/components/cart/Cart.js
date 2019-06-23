@@ -5,7 +5,7 @@ import { createLineItem, updateLineItem, deleteLineItem, updateTransaction } fro
 import { findPendingTransaction, findLineItemById } from '../../util';
 
 
-const Porfolio = ({ cart, stocks, createLineItem, updateLineItem, deleteLineItem, updateOrder, history }) => (
+const Cart = ({ cart, stocks, auth, createLineItem, updateLineItem, deleteLineItem, updateTransaction, history }) => (
     <Fragment>
         <h2>Cart</h2>
         <hr/>
@@ -33,7 +33,7 @@ const Porfolio = ({ cart, stocks, createLineItem, updateLineItem, deleteLineItem
                 return(
                     <tr key={ idx }>
                         <td>{ stock.symbol }</td>
-                        <td>{ stock.latestPrice }</td>
+                        <td>${ stock.latestPrice }</td>
                         <td>{ quantity }</td>
                         <td onClick={ 
                                 () => inCart ? 
@@ -47,7 +47,7 @@ const Porfolio = ({ cart, stocks, createLineItem, updateLineItem, deleteLineItem
                                 updateLineItem(lineItem, transactionId, quantity, 'decrement') : 
                                 deleteLineItem(lineItem, transactionId) 
                                 }>
-                            <Button disabled={ quantity === 0 }>-</Button>
+                            <Button disabled={ quantity === 0 || !auth.id }>-</Button>
                         </td>
                     </tr>
                 )
@@ -55,18 +55,23 @@ const Porfolio = ({ cart, stocks, createLineItem, updateLineItem, deleteLineItem
         }
         </tbody>
         </Table>
-        <Button color='primary' block>Create Transaction</Button>
+        <Button 
+            onClick={ () => updateTransaction(cart, auth, history) }
+            disabled={ !cart.lineItems[0] }
+            color='primary' block
+            >
+                Create Transaction
+        </Button>
     </Fragment>
 )
 
 
-const mapStateToProps = ({ transactions, stocks }, { history }) => {
+const mapStateToProps = ({ transactions, stocks, auth }, { history }) => {
     const cart = findPendingTransaction(transactions);
-    console.log(stocks)
-    return { cart, stocks, history };
+    return { cart, stocks, auth, history };
 }
 
 const mapDispatchToProps = ({ createLineItem, updateLineItem, deleteLineItem, updateTransaction });
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Porfolio);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);

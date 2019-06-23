@@ -23,6 +23,11 @@ const NavBar = ({ auth }) => {
                             </NavLink>
                         </NavItem>
                         <NavItem className={ style.navItem }>
+                            <NavLink tag={ Link } to='/cart'>
+                                Cart
+                            </NavLink>
+                        </NavItem>
+                        <NavItem className={ style.navItem }>
                             <NavLink tag={ Link } to='/transactions'>
                                 Transactions
                             </NavLink>
