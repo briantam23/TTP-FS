@@ -35,9 +35,9 @@ class App extends Component {
                 loading 
                     ? <Spinner className={ style.spinner } color='primary'/>
                     : (
-                        <Fragment>
+                        <div className={ style.pageContainer }>
                             <Route render={ () => <NavBar/> }/>
-                            <div className={ style.mainContainer }>
+                            <div className={ style.contentWrap }>
                                 <Route exact path='/' render={ ({ history }) => <SignIn history={ history }/> }/>
                                 <Route path='/register' render={ ({ history }) => <Register history={ history }/> }/>
                                 <Route path='/portfolio' render={ () => <Portfolio/> }/>
@@ -45,7 +45,7 @@ class App extends Component {
                                 <Route path='/transactions' render={ () => <Transactions/> }/>
                             </div>
                             <a className={ style.footer } href="https://iexcloud.io">Data provided by IEX Cloud</a>
-                        </Fragment>
+                        </div>
                     )
             }
             </Router>

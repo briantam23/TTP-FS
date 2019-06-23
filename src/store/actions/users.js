@@ -29,7 +29,7 @@ export const createUser = (user, history) => (
     )
 )
 
-const _updateUser = user => ({
+export const _updateUser = user => ({
     type: UPDATE_USER,
     users: user
 })

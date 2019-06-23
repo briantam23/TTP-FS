@@ -67,13 +67,19 @@ const Cart = ({ cart, stocks, auth, createLineItem, updateLineItem, deleteLineIt
                 <strong>Total: </strong> 
                 ${ findCartTotal(cart).toFixed(2) }
         </h4> 
-        <Button 
-            onClick={ () => updateTransaction(cart, auth, stocks, history) }
-            disabled={ !cart.lineItems[0] }
-            color='primary' block
-            >
-                Create Transaction
-        </Button>
+    {
+        findCartTotal(cart).toFixed(2) < auth.balance ? (
+            <Button 
+                onClick={ () => updateTransaction(cart, auth, stocks, history) }
+                disabled={ !cart.lineItems[0] }
+                color='primary' block
+                >
+                    Create Transaction
+            </Button>
+        ) : (
+            <Button disabled color='danger' block>Not enough funds!</Button>
+        )
+    }
     </Fragment>
 )
 
