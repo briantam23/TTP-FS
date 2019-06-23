@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import style from './app.less'
@@ -34,17 +34,16 @@ class App extends Component {
                 loading 
                     ? <Spinner color='primary'/>
                     : (
-                        <div className={ style.mainContainer }>
-                            <Jumbotron className={ style.title }>
-                                <h1 className='display-8'>TTP-FS: Brian Tam</h1>
-                            </Jumbotron>
+                        <Fragment>
                             <Route render={ () => <NavBar/> }/>
-                            <Route exact path='/' render={ ({ history }) => <SignIn history={ history }/> }/>
-                            <Route path='/register' render={ ({ history }) => <Register history={ history }/> }/>
-                            <Route path='/cart' render={ ({ history }) => <Cart history={ history }/> }/>
-                            <Route path='/transactions' render={ () => <Transactions/> }/>
+                            <div className={ style.mainContainer }>
+                                <Route exact path='/' render={ ({ history }) => <SignIn history={ history }/> }/>
+                                <Route path='/register' render={ ({ history }) => <Register history={ history }/> }/>
+                                <Route path='/cart' render={ ({ history }) => <Cart history={ history }/> }/>
+                                <Route path='/transactions' render={ () => <Transactions/> }/>
+                            </div>
                             <a className={ style.footer } href="https://iexcloud.io">Data provided by IEX Cloud</a>
-                        </div>
+                        </Fragment>
                     )
             }
             </Router>

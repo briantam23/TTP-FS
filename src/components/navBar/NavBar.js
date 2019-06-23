@@ -8,33 +8,40 @@ import { connect } from 'react-redux';
 const NavBar = ({ auth }) => {
     return(
         <div className={ style.nav }>
-            <Nav tabs>
-                <NavItem className={ style.navItem }>
-                    <NavLink tag={ Link } to='/'>
-                        Account
-                    </NavLink>
-                </NavItem>
-            {
-                auth.id ? (
-                    <Fragment>
-                        <NavItem className={ style.navItem }>
-                            <NavLink tag={ Link } to='/portfolio'>
-                                Portfolio
-                            </NavLink>
-                        </NavItem>
-                        <NavItem className={ style.navItem }>
-                            <NavLink tag={ Link } to='/cart'>
-                                Cart
-                            </NavLink>
-                        </NavItem>
-                        <NavItem className={ style.navItem }>
-                            <NavLink tag={ Link } to='/transactions'>
-                                Transactions
-                            </NavLink>
-                        </NavItem>
-                    </Fragment>
-                ) : null
-            }
+            <Nav className="navbar navbar-dark bg-dark">
+                <div>
+                    <div>
+                        <Link className="navbar-brand" to="/">
+                            <h2>TTP-FS: Brian Tam</h2>
+                        </Link>
+                    </div>
+                </div>
+                <div className={ style.navItems }>
+                    <NavItem>
+                        <NavLink tag={ Link } to='/' className={ style.navLink }>
+                            Account
+                        </NavLink>
+                    </NavItem>
+                {
+                    auth.id ? (
+                        <Fragment>
+                        {
+                            ['Portfolio', 'Cart', 'Transactions'].map((page, idx) => (
+                                <NavItem key={ idx }>
+                                    <NavLink 
+                                        tag={ Link } 
+                                        to={ `/${page.toLowerCase()}` } 
+                                        className={ style.navLink }
+                                        >
+                                            { page }
+                                    </NavLink>
+                                </NavItem>
+                            ))
+                        }
+                        </Fragment>
+                    ) : null
+                }
+                </div>
             </Nav>
         </div>
     )
