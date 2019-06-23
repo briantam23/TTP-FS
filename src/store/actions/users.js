@@ -24,7 +24,7 @@ export const createUser = (user, history) => (
             .then(res => res.data)
             .then(_user => {
                 dispatch(_createUser(_user));
-                history.push('/portfolio');
+                history.push('/');
             })
     )
 )

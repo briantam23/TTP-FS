@@ -1,48 +1,33 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import style from './portfolio.less';
-import { ListGroup, ListGroupItem, Button, Badge } from 'reactstrap';
-import { findStockNameById, findFinishedTransactions } from '../../util';
+import { Table, Button } from 'reactstrap';
+import { createLineItem, updateLineItem, deleteLineItem, updateTransaction } from '../../store/actions/transactions';
 
 
-class Portfolio extends Component {
-
-    render() {
-        const { transactions, stocks, auth } = this.props;
-        return(
-            <Fragment>
-                <h2>Portfolio</h2>
-                <hr/>
-                {
-                    /* transactions.map(transaction => (
-                        <ListGroup key={ transaction.id }>
-                            <Fragment>
-                                Transaction ID: <br/>{ transaction.id }
-                            </Fragment>
-                        {
-                            transaction.lineItems.map(lineItem => (
-                                <ListGroupItem key={ lineItem.id }>
-                                    <h5>
-                                        <Badge color='primary'>{ findStockNameById(stocks, lineItem.stockId) }</Badge>
-                                        <Badge color='success' className={ style.quantity }>Quantity: { lineItem.quantity }</Badge>
-                                    </h5>
-                                </ListGroupItem>
-                            ))
-                        }
-                        </ListGroup>
-                    )) */
-                }
-            </Fragment>
-        )
-    }
-} 
+const Porfolio = ({ transactions, stocks, createLineItem, updateLineItem, deleteLineItem, updateOrder, history }) => (
+    <Fragment>
+        <h2>Cart</h2>
+        <hr/>
+        <h3>Stocks</h3>
+        <Table dark striped>
+        <thead>
+            <tr>
+                <th>Stock Name</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        </Table>
+        <Button color='primary' block>Create Transaction</Button>
+    </Fragment>
+)
 
 
-const mapStateToProps = ({ transactions, stocks, auth }) => {
-    transactions = findFinishedTransactions(transactions);
-    //console.log(transactions);
-    return { transactions, stocks, auth };
+const mapStateToProps = ({ transactions, stocks }, { history }) => {
+    return { transactions, stocks, history };
 }
+const mapDispatchToProps = ({ createLineItem, updateLineItem, deleteLineItem, updateTransaction });
 
 
-export default connect(mapStateToProps)(Portfolio);
+export default connect(mapStateToProps, mapDispatchToProps)(Porfolio);

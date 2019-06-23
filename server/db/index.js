@@ -13,7 +13,7 @@ Transaction.belongsTo(User);
 
 const syncAndSeed = () => {
     let Foo, Bar, Baz, 
-        transaction1, transaction2, transaction3, 
+        transaction1, transaction2, transaction3, cart,
         lineItem1, lineItem2, lineItem3, lineItem4, lineItem5, lineItem6,
         Brian, Johnny, Mike;
 
@@ -29,6 +29,7 @@ const syncAndSeed = () => {
                 Transaction.create({ status: 'TRANSACTION' }),
                 Transaction.create({ status: 'TRANSACTION' }),
                 Transaction.create({ status: 'TRANSACTION' }),
+                Transaction.create({ status: 'CART' })
             ])
         })
         .then(tranactions => {
