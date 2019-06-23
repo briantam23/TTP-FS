@@ -27,6 +27,7 @@ const User = conn.define('user', {
     },
     balance: {
         type: conn.Sequelize.DECIMAL(10, 2),
+        allowNull: false,
         defaultValue: 5000
     }
 })

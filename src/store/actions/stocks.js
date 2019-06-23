@@ -1,5 +1,6 @@
 import { LOAD_INITIAL_STOCKS } from '../constants';
 import axios from 'axios';
+import { getStockFromAPI, postStock, filterStocks } from '../../util';
 
 
 const _loadInitialStocks = stocks => ({
@@ -8,40 +9,37 @@ const _loadInitialStocks = stocks => ({
 })
 export const loadInitialStocks = () => (
     dispatch => {
-        const stocks = [];
-        let apple, facebook, google, microsoft, tesla, yelp;
-        return axios.get(`https://cloud.iexapis.com/stable/stock/aapl/quote?token=${process.env.IEX_API_KEY}`)
+        return getStockFromAPI('AAPL')
             .then(res => {
                 let { symbol, open, latestPrice } = res.data;
-                apple = { symbol, open, latestPrice };
-                return axios.get(`https://cloud.iexapis.com/stable/stock/fb/quote?token=${process.env.IEX_API_KEY}`)
+                postStock(symbol, open, latestPrice);
+                return getStockFromAPI('FB')
             })
             .then(res => {
                 let { symbol, open, latestPrice } = res.data;
-                facebook = { symbol, open, latestPrice };
-                return axios.get(`https://cloud.iexapis.com/stable/stock/googl/quote?token=${process.env.IEX_API_KEY}`)
+                postStock(symbol, open, latestPrice);
+                return getStockFromAPI('GOOGL')
             })
             .then(res => {
                 let { symbol, open, latestPrice } = res.data;
-                google = { symbol, open, latestPrice };
-                return axios.get(`https://cloud.iexapis.com/stable/stock/msft/quote?token=${process.env.IEX_API_KEY}`)
+                postStock(symbol, open, latestPrice);
+                return getStockFromAPI('MSFT')
             })
             .then(res => {
                 let { symbol, open, latestPrice } = res.data;
-                microsoft = { symbol, open, latestPrice };
-                return axios.get(`https://cloud.iexapis.com/stable/stock/tsla/quote?token=${process.env.IEX_API_KEY}`)
+                postStock(symbol, open, latestPrice);
+                return getStockFromAPI('TSLA')
             })
             .then(res => {
                 let { symbol, open, latestPrice } = res.data;
-                tesla = { symbol, open, latestPrice };
-                return axios.get(`https://cloud.iexapis.com/stable/stock/yelp/quote?token=${process.env.IEX_API_KEY}`)
+                postStock(symbol, open, latestPrice);
+                return getStockFromAPI('YELP')
             })
             .then(res => {
                 let { symbol, open, latestPrice } = res.data;
-                yelp = { symbol, open, latestPrice };
-                stocks.push(apple, facebook, google, microsoft, tesla, yelp);
-                return stocks;
+                postStock(symbol, open, latestPrice);
             })
-            .then(stocks => dispatch(_loadInitialStocks(stocks)))
+            .then(() => axios.get('/api/stocks'))
+            .then(stocks => dispatch(_loadInitialStocks(filterStocks(stocks))));
     }
 )

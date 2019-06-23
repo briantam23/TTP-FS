@@ -8,16 +8,16 @@ const _loadInitialTransactions = transactions => ({
 })
 export const loadInitialTransactions = userId => (
     dispatch => {
-        if(userId) {
+        /* if(userId) {
             return axios.get(`/api/users/${userId}/transactions`)
                 .then(res => res.data)
                 .then(transactions => dispatch(_loadInitialTransactions(transactions)))
         }
-        else {
+        else { */
             return axios.get(`/api/transactions`)
                 .then(res => res.data)
                 .then(transactions => dispatch(_loadInitialTransactions(transactions)))
-        }
+        //}
     }
 )
 
@@ -25,8 +25,8 @@ const _createLineItem = lineItem => ({
     type: CREATE_LINE_ITEM,
     lineItem
 }) 
-export const createLineItem = (product, transactionId) => {
-    let lineItem = { ...product, productId: product.id }, userId;
+export const createLineItem = (stock, transactionId) => {
+    let lineItem = { ...stock, stockId: stock.id }, userId;
     return(
         dispatch => (
             axios.post(`/api/users/${userId}/transaction/${transactionId}/lineItems`, lineItem)
@@ -40,6 +40,7 @@ const _updateLineItem = lineItem => ({
     lineItem
 })
 export const updateLineItem = (lineItem, transactionId, _quantity, change) => {
+    change === 'increment' ? change = 1 : change = -1;
     let userId;
     lineItem = { ...lineItem, quantity: _quantity + change };
     return(

@@ -14,7 +14,7 @@ Transaction.belongsTo(User);
 const syncAndSeed = () => {
     let Foo, Bar, Baz, 
         transaction1, transaction2, transaction3, cart,
-        lineItem1, lineItem2, lineItem3, lineItem4, lineItem5, lineItem6,
+        //lineItem1, lineItem2, lineItem3, lineItem4, lineItem5, lineItem6,
         Brian, Johnny, Mike;
 
     conn.sync({ force: true })
@@ -34,17 +34,17 @@ const syncAndSeed = () => {
         })
         .then(tranactions => {
             [transaction1, transaction2, transaction3] = tranactions;
-            return Promise.all([
+            /* return Promise.all([
                 LineItem.create({ quantity: 1 }),
                 LineItem.create({ quantity: 2 }),
                 LineItem.create({ quantity: 3 }),
                 LineItem.create({ quantity: 4 }),
                 LineItem.create({ quantity: 5 }),
                 LineItem.create({ quantity: 6 })
-            ])
+            ]) */
         })
-        .then(lineItems => {
-            [lineItem1, lineItem2, lineItem3, lineItem4, lineItem5, lineItem6] = lineItems;
+        .then(() => {
+            //[lineItem1, lineItem2, lineItem3, lineItem4, lineItem5, lineItem6] = lineItems;
             return Promise.all([
                 User.create({ name: 'Brian', email: 'b@gmail.com', password: 'Briantam23@' }),
                 User.create({ name: 'Johnny', email: 'j@gmail.com', password: 'Johnny34&', balance: 6000 }),
@@ -54,7 +54,7 @@ const syncAndSeed = () => {
         .then(users => {
             [Brian, Johnny, Mike] = users;
             Promise.all([
-                lineItem1.setStock(Foo),
+                /* lineItem1.setStock(Foo),
                 lineItem2.setStock(Bar),
                 lineItem3.setStock(Baz),
                 lineItem4.setStock(Foo),
@@ -65,7 +65,7 @@ const syncAndSeed = () => {
                 lineItem3.setTransaction(transaction3),
                 lineItem4.setTransaction(transaction2),
                 lineItem5.setTransaction(transaction3),
-                lineItem6.setTransaction(transaction3),
+                lineItem6.setTransaction(transaction3), */
                 transaction1.setUser(Brian),
                 transaction2.setUser(Johnny),
                 transaction3.setUser(Mike)

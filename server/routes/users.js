@@ -75,7 +75,7 @@ router.get('/:userId/transactions', async (req, res, next) => {
 })
 
 //create line item
-router.post('/:userId/transactions/:transactionId/lineItems', (req, res, next) => {
+router.post('/:userId/transaction/:transactionId/lineItems', (req, res, next) => {
     LineItem.create({
         transactionId: req.params.transactionId,
         quantity: req.body.quantity,
@@ -86,7 +86,7 @@ router.post('/:userId/transactions/:transactionId/lineItems', (req, res, next) =
 })
 
 //update line item
-router.put('/:userId/transactions/:transactionId/lineItems/:lineItemId', (req, res, next) => {
+router.put('/:userId/transaction/:transactionId/lineItems/:lineItemId', (req, res, next) => {
     LineItem.findByPk(req.params.lineItemId)
         .then(lineItem => lineItem.update(req.body))
         .then(lineItem => res.send(lineItem))
@@ -94,8 +94,8 @@ router.put('/:userId/transactions/:transactionId/lineItems/:lineItemId', (req, r
 })
 
 //delete line item
-router.delete('/:userId/transactions/:transactionId/lineItems/:lineItemId', (req, res, next) => {
-    LineItem.destory({ 
+router.delete('/:userId/transaction/:transactionId/lineItems/:lineItemId', (req, res, next) => {
+    LineItem.destroy({ 
         where: {
             transactionId: req.params.transactionId,
             id: req.params.lineItemId
@@ -106,7 +106,7 @@ router.delete('/:userId/transactions/:transactionId/lineItems/:lineItemId', (req
 })
 
 //update transaction
-router.put('/:userId/transactions/:transactionId', (req, res, next) => {
+router.put('/:userId/transaction/:transactionId', (req, res, next) => {
     Transaction.findByPk(req.params.transactionId)
         .then(transaction => transaction.update({ ...req.body, userId: req.params.userId}))
         .then(transaction => res.send(transaction))

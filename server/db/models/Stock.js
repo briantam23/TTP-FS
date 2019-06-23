@@ -2,14 +2,20 @@ const conn = require('../conn');
 
 
 const Stock = conn.define('stock', {
-    name: {
+    symbol: {
         type: conn.Sequelize.STRING,
-        allowNull: false,
         unique: true,
         validate: {
             notEmpty: true
         }
+    },
+    openPrice: {
+        type: conn.Sequelize.DECIMAL(10, 2)
+    },
+    latestPrice: {
+        type: conn.Sequelize.DECIMAL(10, 2)
     }
+
 })
 
 

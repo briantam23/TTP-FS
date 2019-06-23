@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
 import style from './app.less'
-import { Spinner } from 'reactstrap';
+import { Spinner, Jumbotron } from 'reactstrap';
 import { loadInitialUsers } from '../../store/actions/users';
 import { loadInitialTransactions } from '../../store/actions/transactions';
 import { loadInitialStocks } from '../../store/actions/stocks';
@@ -35,7 +35,9 @@ class App extends Component {
                     ? <Spinner color='primary'/>
                     : (
                         <div className={ style.mainContainer }>
-                            <h1 className={ style.title }>TTP-FS: Brian Tam</h1>
+                            <Jumbotron className={ style.title }>
+                                <h1 className='display-8'>TTP-FS: Brian Tam</h1>
+                            </Jumbotron>
                             <Route render={ () => <NavBar/> }/>
                             <Route exact path='/' render={ ({ history }) => <SignIn history={ history }/> }/>
                             <Route path='/register' render={ ({ history }) => <Register history={ history }/> }/>
