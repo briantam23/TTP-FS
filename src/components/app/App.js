@@ -9,6 +9,7 @@ import { loadInitialStocks } from '../../store/actions/stocks';
 import NavBar from '../navBar/NavBar';
 import SignIn from '../signIn/SignIn';
 import Register from '../register/Register';
+import Portfolio from '../portfolio/Portfolio';
 import Cart from '../cart/Cart';
 import Transactions from '../transactions/Transactions';
 
@@ -32,13 +33,14 @@ class App extends Component {
             <Router>
             {
                 loading 
-                    ? <Spinner color='primary'/>
+                    ? <Spinner className={ style.spinner } color='primary'/>
                     : (
                         <Fragment>
                             <Route render={ () => <NavBar/> }/>
                             <div className={ style.mainContainer }>
                                 <Route exact path='/' render={ ({ history }) => <SignIn history={ history }/> }/>
                                 <Route path='/register' render={ ({ history }) => <Register history={ history }/> }/>
+                                <Route path='/portfolio' render={ () => <Portfolio/> }/>
                                 <Route path='/cart' render={ ({ history }) => <Cart history={ history }/> }/>
                                 <Route path='/transactions' render={ () => <Transactions/> }/>
                             </div>

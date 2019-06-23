@@ -129,8 +129,8 @@ export class SignIn extends Component {
                             </FormGroup>
                             <Button disabled={ !email && !password } color='primary'>Login</Button>
                             <hr/>
-                            <div className={ style.register }>
-                                <h4>Or</h4>
+                            <div>
+                                <h4 className={ style.register }>Or</h4>
                                 <Link to='/register'>
                                     <Button color='info'>Create an account</Button>
                                 </Link>
@@ -143,6 +143,7 @@ export class SignIn extends Component {
                             <h3>Welcome { auth.name }!</h3>
                             <Button color='danger' className={ style.logOut }>Logout</Button>
                         </Form>
+                        <hr/>
                     </Fragment>
                 )
             }

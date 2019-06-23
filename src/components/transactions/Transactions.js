@@ -7,20 +7,31 @@ import { findStockNameById, findFinishedTransactions } from '../../util';
 
 const Transactions = ({ transactions, stocks, auth }) => (
     <Fragment>
-        <h2>Orders</h2>
+        <h2>Transactions</h2>
         <hr/>
     {
         transactions.map(transaction => (
-            <ListGroup key={ transaction.id }>
+            <ListGroup className={ style.listGroup } key={ transaction.id }>
                 <Fragment>
-                    Transaction ID: <br/>{ transaction.id }
+                    <h5>
+                        <strong>Transaction ID: </strong>
+                        <br/>{ transaction.id }
+                    </h5>
                 </Fragment>
             {
                 transaction.lineItems.map(lineItem => (
                     <ListGroupItem key={ lineItem.id }>
                         <h5>
-                            <Badge color='primary'>{ findStockNameById(stocks, lineItem.stockId) }</Badge>
-                            <Badge color='success' className={ style.quantity }>Quantity: { lineItem.quantity }</Badge>
+                            <strong>Stock Symbol: </strong>
+                            { findStockNameById(stocks, lineItem.stockId) }
+                        </h5>
+                        <h5>
+                            <strong>Quantity: </strong>
+                            { lineItem.quantity }
+                        </h5>
+                        <h5>
+                            <strong>Total: </strong>
+                            $
                         </h5>
                     </ListGroupItem>
                 ))
