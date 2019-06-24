@@ -1,5 +1,15 @@
 .listGroup { 
     margin-top: 20px; 
+    
+    .listGroupHeaders {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .listGroupHeader {
+            margin: 10px 0px;
+        }
+    }
 
     .transactionTotal {
         float: right; 
@@ -8,3 +18,5 @@
 
     hr { width: 100%; }
 }
+
+.noTransactions { text-align: center; }
