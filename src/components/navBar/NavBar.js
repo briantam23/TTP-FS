@@ -41,7 +41,7 @@ const NavBar = ({ auth, cartCount, finishedTransactionsCount }) => {
                                     to='/stocks' 
                                     className={ style.navLink }
                                     >
-                                        Stocks
+                                        Buy Stocks
                                 </NavLink>
                             </NavItem>
                             <NavItem>

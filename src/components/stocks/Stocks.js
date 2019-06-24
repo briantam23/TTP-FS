@@ -34,7 +34,7 @@ class Stocks extends Component {
         return(
             <div>
                 <Fragment>
-                    <h2>Stocks</h2>
+                    <h2>Buy Stocks</h2>
                     <hr/>
                     <Form>
                         <FormGroup row>

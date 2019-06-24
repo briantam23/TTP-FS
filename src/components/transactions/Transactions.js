@@ -29,7 +29,7 @@ const Transactions = ({ transactions, stocks, auth }) => (
                                 <br/>
                             </div>
                             <div className={ style.listGroupHeader }>
-                                <strong>Ordered on:</strong> 
+                                <strong>Purchased on:</strong> 
                                 <br/>
                                 { getDate(transaction) } <strong>at</strong> { getEasternTime(transaction) }
                             </div>
