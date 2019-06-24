@@ -67,16 +67,20 @@ const _updateTransaction = (transaction, userId) => ({
 })
 export const updateTransaction = (cart, auth, stocks, history) => {
     const totalCost = findCartTotal(cart).toFixed(2);
+    const updatedBalance = auth.balance - totalCost;
     const newTransaction = { ...cart, status: 'TRANSACTION', totalCost };
-    const updatedUser = { ...auth, balance: auth.balance - totalCost };
+    const updatedUser = { ...auth, balance: updatedBalance.toFixed(2) };
+    
     return dispatch => (
         axios.put(`/api/users/${auth.id}/transaction/${cart.id}`, newTransaction)
+
             .then(() => axios.put(`/api/users/${auth.id}`, updatedUser))
             .then(res => res.data)
             .then(_updatedUser => {
                 dispatch(_updateAuth(_updatedUser));
                 dispatch(_updateUser(_updatedUser));
             })
+
             .then(() => axios.get(`/api/transactions`))
             .then(res => res.data)
             .then(newTransactions => {

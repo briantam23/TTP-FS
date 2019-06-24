@@ -38,7 +38,7 @@ export class Register extends Component {
                 <Form onSubmit={ onSubmit }>
                     <FormGroup row>
                         <Label for='name' sm={2} size='lg'>Name</Label>
-                        <Col sm={10}>
+                        <Col sm={10} className={ style.input }>
                             <Input 
                                 onChange={ handleChange }
                                 value={ name }
@@ -54,7 +54,7 @@ export class Register extends Component {
                     <FormGroup row>
                         <Fragment>
                             <Label for='email' sm={2} size='lg'>Email</Label>
-                            <Col sm={10}>
+                            <Col sm={10} className={ style.input }>
                             {
                                 !error ? (
                                     <Input 
@@ -87,7 +87,7 @@ export class Register extends Component {
                     </FormGroup>
                     <FormGroup row>
                         <Label for='password' sm={2} size='lg'>Password</Label>
-                        <Col sm={10}>
+                        <Col sm={10} className={ style.input }>
                             <Input 
                                 onChange={ handleChange }
                                 value={ password }
@@ -96,7 +96,6 @@ export class Register extends Component {
                                 placeholder='Password'
                                 size='20'
                                 required
-                                type='password'
                                 />
                         </Col>
                     </FormGroup>

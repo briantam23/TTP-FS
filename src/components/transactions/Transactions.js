@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import style from './transactions.less';
 import { ListGroup, ListGroupItem, Button, Badge, Jumbotron } from 'reactstrap';
-import { findStockNameById, findFinishedTransactions } from '../../util';
+import { findStockNameById, findFinishedTransactions, getDate, getEasternTime } from '../../util';
 
 
 const Transactions = ({ transactions, stocks, auth }) => (
@@ -17,7 +17,7 @@ const Transactions = ({ transactions, stocks, auth }) => (
         </div>
         <hr/>
     {
-        transactions[0] ? (
+        transactions.length ? (
             transactions.map(transaction => (
                 <ListGroup className={ style.listGroup } key={ transaction.id }>
                     <h5>
@@ -31,7 +31,7 @@ const Transactions = ({ transactions, stocks, auth }) => (
                             <div className={ style.listGroupHeader }>
                                 <strong>Ordered on:</strong> 
                                 <br/>
-                                { transaction.updatedAt.slice(0, 10) } <strong>at</strong> { transaction.updatedAt.slice(11, 16) }
+                                { getDate(transaction) } <strong>at</strong> { getEasternTime(transaction) }
                             </div>
                         </div>
                     </h5>
@@ -42,9 +42,15 @@ const Transactions = ({ transactions, stocks, auth }) => (
                                 <strong>Stock Symbol: </strong>
                                 { findStockNameById(stocks, lineItem.stockId) }
                                 <br/>
-
+                            </h5>
+                            <h5>
                                 <strong>Quantity: </strong>
                                 { lineItem.quantity }
+                                <br/>
+                            </h5>
+                            <h5>
+                                <strong>Unit Price: </strong>
+                                ${ lineItem.price }
                             </h5>
                         </ListGroupItem>
                     ))

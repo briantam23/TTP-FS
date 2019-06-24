@@ -71,7 +71,7 @@ const Cart = ({ cart, stocks, auth, createLineItem, updateLineItem, deleteLineIt
         findCartTotal(cart).toFixed(2) < auth.balance ? (
             <Button 
                 onClick={ () => updateTransaction(cart, auth, stocks, history) }
-                disabled={ !cart.lineItems[0] }
+                disabled={ !cart.lineItems.length }
                 color='primary' block
                 >
                     Create Transaction

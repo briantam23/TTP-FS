@@ -1,39 +1,49 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import style from './portfolio.less';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroup, ListGroupItem, Jumbotron } from 'reactstrap';
 import { findTotalsByStock, findPortfolioValue, getPerformanceColor } from '../../util';
 
 
 const Portfolio = ({ stockSet, stocks, auth }) => (
     <Fragment>
         <h2>Portfolio</h2>
-        <hr/>
-        <ListGroup>
+        <hr/>    
         {
-            stockSet.map(stock => {
-                const { id, symbol, quantity, currentPrice, openPrice } = stock;
-                return(
-                    <ListGroupItem className={ getPerformanceColor(currentPrice, openPrice, style) } key={ id }>
-                        <h5 className={ getPerformanceColor(currentPrice, openPrice, style) }>
-                            <strong>Stock Symbol: </strong>
-                            { symbol }
-                        </h5>
-                        <h5>
-                            <strong>Shares: </strong>
-                            { quantity }
-                        </h5>
-                        <h5 className={ getPerformanceColor(currentPrice, openPrice, style) }>
-                            <strong>Total Share Price: </strong>
-                            ${ quantity * currentPrice }
-                        </h5>
-                    </ListGroupItem>
-                )
-            })
+            stocks.length ? (
+                stockSet.map(stock => {
+                    const { id, symbol, quantity, currentPrice, openPrice } = stock;
+                    return(
+                        <ListGroup>
+                            <ListGroupItem className={ getPerformanceColor(currentPrice, openPrice, style) } key={ id }>
+                                <h5>
+                                    <strong>Stock Symbol: </strong>
+                                    { symbol }
+                                </h5>
+                                <h5>
+                                    <strong>Shares: </strong>
+                                    { quantity }
+                                </h5>
+                                <h5>
+                                    <strong>Unit Price: </strong>
+                                    ${ (currentPrice).toFixed(2) }
+                                </h5>
+                                <h5>
+                                    <strong>Total Price: </strong>
+                                    ${ (quantity * currentPrice).toFixed(2) }
+                                </h5>
+                            </ListGroupItem>
+                        </ListGroup>
+                    )
+                })
+            ) : (
+                <Jumbotron className={ style.emptyPortfolio }>
+                    <h3>Empty Portofolio!</h3>
+                </Jumbotron>
+            )
         }
-        </ListGroup>
     {
-        stockSet[0] ? (
+        stockSet.length ? (
             <h4 className={ style.total }>
                 <strong>Total: </strong> 
                 ${ findPortfolioValue(stockSet) }

@@ -66,7 +66,7 @@ export class SignIn extends Component {
                         <Form onSubmit={ handleAuth }>
                             <FormGroup row>
                                 <Label for='email' sm={2} size='lg'>Email</Label>
-                                <Col sm={10}>
+                                <Col sm={10} className={ style.input }>
                                 {
                                     !error ? (
                                         <Input 
@@ -95,7 +95,7 @@ export class SignIn extends Component {
                             </FormGroup>
                             <FormGroup row>
                                 <Label for='password' sm={2} size='lg'>Password</Label>
-                                <Col sm={10}>
+                                <Col sm={10} className={ style.input }>
                                 {
                                     !error ? (
                                         <Input 
@@ -119,7 +119,6 @@ export class SignIn extends Component {
                                                 placeholder='Password'
                                                 size='20'
                                                 required
-                                                type='password'
                                                 />
                                             <FormFeedback>{ error }</FormFeedback>
                                         </Fragment>

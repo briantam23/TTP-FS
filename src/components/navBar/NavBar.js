@@ -1,11 +1,12 @@
 import React, { Fragment } from 'react';
 import style from './navBar.less';
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import { Nav, NavItem, NavLink, Badge } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { findPendingTransaction, findCartCount, findFinishedTransactions } from '../../util';
 
 
-const NavBar = ({ auth }) => {
+const NavBar = ({ auth, cartCount, finishedTransactionsCount }) => {
     return(
         <div className={ style.nav }>
             <Nav className="navbar navbar-dark bg-dark">
@@ -25,19 +26,42 @@ const NavBar = ({ auth }) => {
                 {
                     auth.id ? (
                         <Fragment>
-                        {
-                            ['Portfolio', 'Cart', 'Transactions'].map((page, idx) => (
-                                <NavItem key={ idx }>
-                                    <NavLink 
-                                        tag={ Link } 
-                                        to={ `/${page.toLowerCase()}` } 
-                                        className={ style.navLink }
-                                        >
-                                            { page }
-                                    </NavLink>
-                                </NavItem>
-                            ))
-                        }
+                            <NavItem>
+                                <NavLink 
+                                    tag={ Link } 
+                                    to='/portfolio' 
+                                    className={ style.navLink }
+                                    >
+                                        Porfolio
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink 
+                                    tag={ Link } 
+                                    to='/stocks' 
+                                    className={ style.navLink }
+                                    >
+                                        Stocks
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink 
+                                    tag={ Link } 
+                                    to='/cart' 
+                                    className={ style.navLink }
+                                    >
+                                        Cart <Badge color='primary'>{ cartCount }</Badge>
+                                </NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink 
+                                    tag={ Link } 
+                                    to='/transactions' 
+                                    className={ style.navLink }
+                                    >
+                                        Transactions <Badge color='primary'>{ finishedTransactionsCount }</Badge>
+                                </NavLink>
+                            </NavItem>
                         </Fragment>
                     ) : null
                 }
@@ -48,6 +72,12 @@ const NavBar = ({ auth }) => {
 }
 
 
-const mapStateToProps = ({ auth }) => ({ auth });
+const mapStateToProps = ({ auth, transactions }) => { 
+    const cart = findPendingTransaction(transactions);
+    const cartCount = findCartCount(cart);
+    const finishedTransactionsCount = findFinishedTransactions(transactions, auth).length;
+
+    return { auth, cartCount, finishedTransactionsCount };
+}
 
 export default connect(mapStateToProps)(NavBar);

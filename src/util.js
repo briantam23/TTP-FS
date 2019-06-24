@@ -90,3 +90,15 @@ export const getPerformanceColor = (currentPrice, openPrice, style) => {
     else if(currentPrice === openPrice) return style.grey;
     else return style.green;
 }
+
+export const getDate = transaction => (
+    transaction.updatedAt.slice(0, 10)
+)
+
+export const getEasternTime = transaction => (
+    transaction.updatedAt.slice(11, 13) - 4 + transaction.updatedAt.slice(13, 16)
+)
+
+export const findCartCount = cartOrder => (
+    cartOrder.lineItems.reduce((acc, cur) => acc += cur.quantity, 0)
+)

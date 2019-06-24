@@ -61,7 +61,8 @@ router.post('/:userId/transaction/:transactionId/lineItems', (req, res, next) =>
     LineItem.create({
         transactionId: req.params.transactionId,
         quantity: req.body.quantity,
-        stockId: req.body.stockId
+        stockId: req.body.stockId,
+        price: req.body.price
     })
         .then(lineItem => res.send(lineItem))
         .catch(next)
