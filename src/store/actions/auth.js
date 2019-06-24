@@ -1,4 +1,4 @@
-import { SET_AUTH } from '../constants';
+import { SET_AUTH, UPDATE_AUTH } from '../constants';
 import axios from 'axios';
 
 
@@ -16,6 +16,11 @@ const exchangeTokenForAuth = () => (
 )
 
 const _setAuth = auth => ({
+    type: SET_AUTH,
+    auth
+})
+
+export const _updateAuth = auth => ({
     type: SET_AUTH,
     auth
 })

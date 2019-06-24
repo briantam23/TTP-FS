@@ -7,7 +7,14 @@ import { findStockNameById, findFinishedTransactions } from '../../util';
 
 const Transactions = ({ transactions, stocks, auth }) => (
     <Fragment>
-        <h2>Transactions</h2>
+        <div className={ style.transactionsHeader }>
+            <h2>Transactions</h2>
+            <h4 className={ style.balance }>
+            {
+                auth.balance ? ('Balance ($' + auth.balance + ')') : null
+            }
+            </h4>
+        </div>
         <hr/>
     {
         transactions[0] ? (

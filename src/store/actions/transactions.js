@@ -1,5 +1,6 @@
 import { LOAD_INITIAL_TRANSACTIONS, UPDATE_TRANSACTION, CREATE_LINE_ITEM, UPDATE_LINE_ITEM, DELETE_LINE_ITEM } from '../constants';
 import axios from 'axios';
+import { _updateAuth } from '../actions/auth';
 import { _updateUser } from '../actions/users';
 import { findCurrentPriceById, findCartTotal } from '../../util';
 
@@ -73,8 +74,8 @@ export const updateTransaction = (cart, auth, stocks, history) => {
             .then(() => axios.put(`/api/users/${auth.id}`, updatedUser))
             .then(res => res.data)
             .then(_updatedUser => {
-                console.log(_updatedUser)
-                dispatch(_updateUser(_updatedUser))
+                dispatch(_updateAuth(_updatedUser));
+                dispatch(_updateUser(_updatedUser));
             })
             .then(() => axios.get(`/api/transactions`))
             .then(res => res.data)
