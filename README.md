@@ -2,7 +2,7 @@
 
 # 📈 Stock Portfolio App
 
-A Single Page Stock Portfolio App created with React, Redux & NodeJS.
+A Single Page Stock Portfolio App created with React, Redux, NodeJS & LESS.
 
 ## Login Credentials
 

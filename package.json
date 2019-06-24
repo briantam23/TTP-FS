@@ -14,7 +14,7 @@
   ],
   "homepage": "https://ttp-fs-btam.herokuapp.com",
   "version": "1.0.0",
-  "description": "A Single Page Stock Portfolio App created with React, Redux & NodeJS.",
+  "description": "A Single Page Stock Portfolio App created with React, Redux, NodeJS & LESS.",
   "repository": {
     "type": "git",
     "url": "https://github.com/briantam23/TTP-FS.git"
@@ -33,6 +33,7 @@
     "react",
     "redux",
     "nodejs",
+    "less",
     "jwt-authentication",
     "postgres"
   ],
