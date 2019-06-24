@@ -20,7 +20,7 @@ describe('The React Components', () => {
 
         it('renders an <h2>', () => expect(registerWrapper.find('h2')).to.have.length(1));
 
-        it('renders an <hr/>', () => expect(registerWrapper.find('hr')).to.have.length(1));
+        it('renders an <hr/>', () => expect(registerWrapper.find('hr')).to.have.length(2));
     })
 
 })
