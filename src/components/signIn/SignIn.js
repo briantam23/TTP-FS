@@ -17,18 +17,17 @@ export class SignIn extends Component {
 
     componentDidUpdate = prevProps => {
         const { auth, loadInitialTransactions, history } = this.props;
-        if(prevProps !== this.props) {
-            if(auth.id) {
-                loadInitialTransactions(auth.id)
-                    .then(() => {
-                        this.setState({ 
-                            email: '', 
-                            password: '', 
-                            error: '' 
-                        });
+
+        if(prevProps !== this.props && auth.id) {
+            loadInitialTransactions(auth.id)
+                .then(() => {
+                    this.setState({ 
+                        email: '', 
+                        password: '', 
+                        error: '' 
                     })
-                    .then(() => history.push('/portfolio'))
-            }
+                })
+                .then(() => history.push('/portfolio'))
         }
     }
 

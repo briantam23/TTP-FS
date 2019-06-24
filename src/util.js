@@ -102,3 +102,9 @@ export const getEasternTime = transaction => (
 export const findCartCount = cartOrder => (
     cartOrder.lineItems.reduce((acc, cur) => acc += cur.quantity, 0)
 )
+
+export const isNaturalNumber = val => {
+    if(val === '') return true;
+    const regEx = /^(0|([1-9]\d*))$/;
+    return regEx.test(val);
+}

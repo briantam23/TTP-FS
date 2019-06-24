@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import style from './register.less';
+import { Link } from 'react-router-dom';
 import { Button, Col, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { createUser } from '../../store/actions/users';
 
@@ -21,6 +22,7 @@ export class Register extends Component {
     onSubmit = e => {
         const { createUser, history } = this.props;
         const { name, email, password } = this.state;
+        
         e.preventDefault();
         createUser({ name, email, password }, history)
             .then(() => this.setState({ error: '' }))
@@ -100,6 +102,13 @@ export class Register extends Component {
                         </Col>
                     </FormGroup>
                     <Button color='primary'>Create Account</Button>
+                    <hr/>
+                    <div>
+                        <h4 className={ style.logInLink }>Or</h4>
+                        <Link to='/'>
+                            <Button color='info'>Sign In</Button>
+                        </Link>
+                    </div>
                 </Form>
             </div>
         )

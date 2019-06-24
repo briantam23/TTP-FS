@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import style from './stocks.less';
 import { Link } from 'react-router-dom';
 import { Button, Col, Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
+import { isNaturalNumber } from '../../util';
 
 
 class Stocks extends Component {
@@ -10,15 +11,25 @@ class Stocks extends Component {
     state = {
         symbol: '',
         quantity: 0,
-        error: ''
+        symbolError: '',
+        quantityError: ''
     }
 
     handleChange = e => {
-        this.setState({ [e.target.id]: e.target.value });
+        const { quantityError } = this.state;
+        const { id, value } = e.target;
+        
+        if(id === 'quantity' && !isNaturalNumber(value)) {
+            this.setState({ quantityError: 'Invalid Quantity' });
+        }
+        else if(quantityError && id === 'quantity' && isNaturalNumber(value)) {
+            this.setState({ quantityError: '' });
+        }
+        this.setState({ [id]: value });
     }
 
     render() {
-        const { symbol, quantity, error } = this.state;
+        const { symbol, quantity, symbolError, quantityError } = this.state;
         const { handleChange } = this;
         return(
             <div>
@@ -30,7 +41,7 @@ class Stocks extends Component {
                             <Label for='symbol' sm={2} size='lg'>Symbol</Label>
                             <Col sm={10} className={ style.input }>
                             {
-                                !error ? (
+                                !symbolError ? (
                                     <Input 
                                         onChange={ handleChange }
                                         value={ symbol }
@@ -41,15 +52,19 @@ class Stocks extends Component {
                                         required
                                         />
                                 ) : (
-                                    <Input 
-                                        onChange={ handleChange }
-                                        value={ symbol }
-                                        type='text'
-                                        id='symbol'
-                                        placeholder='Symbol'
-                                        size='20'
-                                        required
-                                        />
+                                    <Fragment>
+                                        <Input 
+                                            invalid
+                                            onChange={ handleChange }
+                                            value={ symbol }
+                                            type='text'
+                                            id='symbol'
+                                            placeholder='Symbol'
+                                            size='20'
+                                            required
+                                            />
+                                            <FormFeedback>{ symbolError }</FormFeedback>
+                                    </Fragment>
                                 )
                             }
                             </Col>
@@ -58,7 +73,7 @@ class Stocks extends Component {
                             <Label for='quantity' sm={2} size='lg'>Quantity</Label>
                             <Col sm={10} className={ style.input }>
                             {
-                                !error ? (
+                                !quantityError ? (
                                     <Input 
                                         onChange={ handleChange }
                                         value={ quantity }
@@ -73,14 +88,14 @@ class Stocks extends Component {
                                         <Input 
                                             invalid
                                             onChange={ handleChange }
-                                            value={ password }
-                                            type='password'
-                                            id='password'
-                                            placeholder='Password'
+                                            value={ quantity }
+                                            type='number'
+                                            id='quantity'
+                                            placeholder='Quantity'
                                             size='20'
                                             required
                                             />
-                                        <FormFeedback>{ error }</FormFeedback>
+                                        <FormFeedback>{ quantityError }</FormFeedback>
                                     </Fragment>
                                 )
                             }
