@@ -28,6 +28,7 @@ This app requires an IEX API Key, which must be set in `.env` or set as an envir
 
 ### Installation
 
+* `createdb ttp-fs`
 * `npm install` (or `yarn install`)
 * `npm run start:dev`
 * open up [localhost:3000](http://localhost:3000) in a web browser
